@@ -46,6 +46,9 @@ def least_squares_analysis(years, temperature, B, t):
     # sanity checks shown on the results figure: Q^T Q ~ I, P^2 ~ P
     err_orth = np.linalg.norm(Q.T @ Q - np.eye(Q.shape[1]))
     err_idem = np.linalg.norm(P @ P - P)
+    # Project 8 check: the orthonormal columns of Q span the same space as B
+    rank_QB = (np.linalg.matrix_rank(Q),
+               np.linalg.matrix_rank(np.column_stack((Q, B))))
 
     beta, *_ = np.linalg.lstsq(B, t, rcond=None)
     c, m = beta[0], beta[1]
@@ -60,7 +63,7 @@ def least_squares_analysis(years, temperature, B, t):
     return {"c": c, "m": m, "Q": Q, "P": P, "t_hat": t_hat,
             "predicted": predicted, "residuals": residuals,
             "sse": sse, "rmse": rmse, "r2": r2,
-            "err_orth": err_orth, "err_idem": err_idem}
+            "err_orth": err_orth, "err_idem": err_idem, "rank_QB": rank_QB}
 
 
 # ------------------------------------------------------------

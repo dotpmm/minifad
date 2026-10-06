@@ -141,7 +141,7 @@ Dependencies: `numpy`, `scipy`, `matplotlib` (managed by `uv`).
 
 ```bash
 uv sync
-uv run python two_lines_temperature.py
+uv run minimfad
 ```
 
 The script opens six labelled matplotlib windows; there is intentionally no
